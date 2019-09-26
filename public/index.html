@@ -25,6 +25,11 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <link rel="stylesheet" href="%PUBLIC_URL%/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="%PUBLIC_URL%/assets/css/dashboard.rtl.css">
+    <link rel="stylesheet" href="%PUBLIC_URL%/assets/fonts/fontawesome.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+      integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -39,5 +44,28 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script src="%PUBLIC_URL%/assets/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/js/bootstrap.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/js/custom.js"></script>
   </body>
 </html>
+<script type="text/javascript">
+  addEventListener("load", function () {
+    
+    if (window.innerWidth > 780) {
+      let content = document.querySelector(".col-md-8");
+      content.className = "col-xs-12 col-md-12"
+    }
+     document.querySelector(".s-sidebar").style.display = "none";
+    let navbtn = document.querySelector(".post-nav");
+    let tagspan = navbtn.children[0]
+    if (navbtn.className.includes("next")) {
+      tagspan.innerText = "محصول بعدی"
+    } else {
+      tagspan.innerText = "محصول قبلی"
+    }
+   
+
+  })
+
+</script>
