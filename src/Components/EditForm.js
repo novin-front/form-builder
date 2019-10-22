@@ -97,7 +97,6 @@ export default function EditForm(props) {
             .finally(function () {
                 // always executed
             });
-    //     localStorage.setItem("form", JSON.stringify(formData))
     }
     return (
         <div className="row">

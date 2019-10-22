@@ -1,50 +1,19 @@
 import React , {useEffect,useState} from 'react';
 import httpHandler from '../httpHandler';
 import FormItems from './formItems';
-import formItems from './formItems';
-export default function FormList({history,match,location}) {
+import {connect} from 'react-redux'
+function FormList({history,match,location,formlist,fetchFormList}) {
     const http = new httpHandler();
     const query = new URLSearchParams(location.search);
-    const [Formlist, setFormlist] = useState([]);
     useEffect(() => {
-        http.get('http://localhost:1900/api/v1/formbuilder/')
-        .then(response =>{
-            
-            let { forms} = response.data;
-           
-            setFormlist(forms)
-        })
-        .catch(error =>{
-            console.log("This is Axios Error", error)
-        })
-        .finally(()=>{
-
-        })
-    }, [])
-    const deleteForm = (fid) => {
-       
-        http.get(`http://localhost:1900/api/v1/formbuilder/delete/${fid}`)
-            .then(response => {
-              
-                // handle success
-                setFormlist(
-                    Formlist.filter(itme => {
-                        return itme.id !== fid
-                    }));
-
-            })
-            .catch(function (error) {
-                // handle error
-                console.log("delete error",error);
-            })
-            .finally(function () {
-                // always executed
-            });
-    }
+        fetchFormList()
+        
+    },[])
    const setList=()=>{
        return(
-             Formlist.map((itme, index) => {
-                return <FormItems data={itme} key={index} deleteById={deleteForm} cunter={index} />
+             formlist.map((itme, index) => {
+                return <FormItems data={itme} key={index} 
+                 cunter={index} />
             })
        )
    }
@@ -105,3 +74,19 @@ export default function FormList({history,match,location}) {
         </div>
     )
 }
+const mapStateToProps = (state) => {
+    return {
+        formlist: state.Formlist
+    }
+}
+const mapToDispatch = (dispatch) => {
+    return {
+        fetchFormList: (payload) => {
+            dispatch({
+                type: 'FETCH_FORM_SAGA',
+                payload
+            })
+        }
+    }
+}
+export default connect(mapStateToProps, mapToDispatch)(FormList);

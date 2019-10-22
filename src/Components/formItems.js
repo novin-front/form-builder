@@ -1,11 +1,9 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router'
 import { HashRouter, Switch,Link } from 'react-router-dom';
+import {connect} from 'react-redux'
 import EditForm from './EditForm'
-export default function formItems({ data, deleteById ,cunter}) {
-const deleteForm = (id)=>{
-    deleteById(id)
-}
+ function formItems({ data, deleteForm ,cunter}) {
 
 const location = {
   pathname: '/edit',
@@ -20,7 +18,6 @@ const location2 = {
 
     return (
         <tr>
-            {console.log("data ========",data)}
             <th scope="row">{++cunter}</th>
             <td>{data.title}</td>
             <td>{data.user_id}</td>
@@ -34,3 +31,17 @@ const location2 = {
         </tr>
     )
 }
+// const mapStateToProps =(state)=>{
+//     return
+// }
+const mapToDispatch = (dispatch)=>{
+       return {
+           deleteForm : (payload) => {
+               dispatch({
+                   type: 'DELETE_FORM_ITME_SAGA',
+                   payload
+               })
+           }
+       }
+}
+export default connect(null,mapToDispatch)(formItems)

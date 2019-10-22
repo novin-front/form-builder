@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import Attributes from './InputAttributes'
-export default function FormCreator({ dataform, deleteprops, updateState}) {
+import {connect} from 'react-redux'
+function FormCreator({ dataform, deleteprops, updateState}) {
     const setDataInputAttributes =()=>{
            return(
                Object.keys(dataform).map((input, index) => {
@@ -18,7 +19,7 @@ export default function FormCreator({ dataform, deleteprops, updateState}) {
 
     const deletegroup =(e,data)=>{
         console.log("this is forms components data layer 1",data)
-        deleteprops(data)
+        deleteprops(data);
     }
     return (
         <div className="card card-group-space">
@@ -46,3 +47,15 @@ export default function FormCreator({ dataform, deleteprops, updateState}) {
         
     )
 }
+const mapToDispatch=(dispatch)=>{
+    return{
+        deleteprops : (payload)=>{
+            dispatch({
+                type: 'DELETE_INPUT_ATTRIBUTE_DATA',
+                payload
+            })
+        }
+
+    }
+}
+export default connect(null,mapToDispatch)(FormCreator);
